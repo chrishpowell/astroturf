@@ -1,0 +1,62 @@
+interface Entity {
+    id: ID!
+    name: String!
+}
+
+type ZodiacCharac implements Entity {
+    id: ID!
+    name: String!
+    additional: String
+}
+
+type Element implements Entity {
+    id: ID!
+    name: String!
+    additional: String
+}
+
+type ZodiacSign implements Entity {
+    id: ID!
+    name: String!
+    ord: Int!
+    sign: String!
+    latin: String
+    eng: String
+    title: String
+    element: Element
+    charac: ZodiacCharac
+    constellation: Constellation
+    descrip: String
+    extUrl: Url
+}
+
+type Constellation implements Entity {
+    id: ID!
+    name: String!
+    additional: String
+}
+
+type AstrologySystem implements Entity {
+    id: ID!
+    name: String!
+    signs: [ZodiacSign]!
+}
+
+type ZodiacDump($astrologyid: AstrologyId = 9) {
+    astrologies: astrology(id: $astrologyid) {
+        name
+        signs {
+            id
+            name
+        }
+    }
+}
+
+input ListAstrologyAttrs {
+    name: AstrologySystem
+    limit: Int
+}
+
+schema {
+    query: ZodiacDump
+}
