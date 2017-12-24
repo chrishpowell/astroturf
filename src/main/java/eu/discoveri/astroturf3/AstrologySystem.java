@@ -1,4 +1,5 @@
 /*
+ * Class for astrology systems
  */
 package eu.discoveri.astroturf3;
 
