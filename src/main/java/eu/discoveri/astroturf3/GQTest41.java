@@ -15,21 +15,25 @@ import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import static graphql.schema.idl.RuntimeWiring.newRuntimeWiring;
+import graphql.servlet.GraphQLServlet;
+import graphql.servlet.SimpleGraphQLServlet;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.annotation.WebServlet;
 
 
 /**
  *
  * @author chrispowell
  */
-public class GQTest4
+@WebServlet("/astrology")
+public class GQTest41 extends SimpleGraphQLServlet.Builder
 {
     static SchemaParser schemaParser = new SchemaParser();
     static SchemaGenerator schemaGenerator = new SchemaGenerator();
-
+    static DataFetcher signsDataFetcher = new StaticDataFetcher("Test");
     static File schemaFile = new File("/home/chrispowell/NetBeansProjects/AstroTurf3/src/main/java/eu/discoveri/astroturf3/AstroSchema.graphqls");
 
     static TypeDefinitionRegistry typeRegistry = schemaParser.parse(schemaFile);
@@ -40,17 +44,23 @@ public class GQTest4
     static RuntimeWiring buildRuntimeWiring()
     {
         return RuntimeWiring.newRuntimeWiring()
-                .type("AstrologySystem", typeWiring -> typeWiring
-                        .dataFetcher("signs", GQTest4.signsDataFetcher)
+                .type("QueryEndPoint", typeWiring -> typeWiring
+                    .dataFetcher("signs", signsDataFetcher)
                 )
                 .build();
     }
+
+    public GQTest41(GraphQLSchema schema) {
+        super(schema);
+    }
+    
+
     
     //@GraphQLDataFetcher
-    static DataFetcher<List<ZodiacSign>> signsDataFetcher = signsList -> {
-        List<ZodiacSign> signs = new ArrayList<>();
-        return signs;
-    };
+//    static DataFetcher<List<ZodiacSign>> signsDataFetcher = signsList -> {
+//        List<ZodiacSign> signs = new ArrayList<>();
+//        return signs;
+//    };
     
     public static void main(String[] args)
     {

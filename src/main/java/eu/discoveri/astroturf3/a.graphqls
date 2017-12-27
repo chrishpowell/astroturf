@@ -1,0 +1,51 @@
+# Entity
+interface Entity {
+    # ID
+    id: ID!
+    # identifier
+    identifier: String!
+}
+
+# Query1
+type Query1 {
+  # Starship
+  starship(id: ID!): Starship
+  # person
+  person(id: String!): Person
+}
+
+# enum
+enum LengthUnit {
+  # Foot
+  FOOT
+  # Meter
+  METER
+}
+
+# Person
+type Person implements Entity {
+  # ID
+  id: ID!
+  # identifier
+  identifier: String!
+  # name
+  name: String
+}
+
+# Using enums
+type Starship {
+  # id
+  id: ID!
+  # name
+  name: String!
+  # length
+  length(unit: LengthUnit = METER): Float
+}
+
+# Schema
+schema {
+  # Query1
+  query: Query1
+}
+
+

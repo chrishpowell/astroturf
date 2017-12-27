@@ -1,0 +1,8 @@
+
+# inputs
+input ListAstrologyAttrs {
+    # system
+    name: AstrologySystem
+    # set of attributes...
+    limit: Int
+}
