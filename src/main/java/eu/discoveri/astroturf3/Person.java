@@ -14,7 +14,10 @@ public class Person
 {
     private java.util.UUID ID;
     private String identifier;
-    private String name;
+    private String name; // username
+    private String lastname, firstname;
+    private String email;
+    private List<Person> friends;
     private static List<Person> preBuiltPersonList = createPersonsList();
 
     public Person(UUID ID, String identifier, String name) {
@@ -33,6 +36,22 @@ public class Person
 
     public String getName() {
         return name;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public List<Person> getFriends() {
+        return friends;
     }
     
     public static List<Person> getPersonsList()

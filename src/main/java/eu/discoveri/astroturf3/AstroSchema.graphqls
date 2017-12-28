@@ -102,6 +102,8 @@ type AstrologySystem implements Entity {
 type Person implements Entity {
     # ID
     id: ID!
+    # identifier
+    identifier: String
     # name (username)
     name: String!
     # last name
@@ -119,8 +121,12 @@ type Person implements Entity {
 type QueryEndPoint {
     # Astrologies
     astrology(id: ID!): AstrologySystem
+    # Sign
+    sign(id: Int): ZodiacSign
+    #Signs
+    signs: ZodiacSign
     # People
-    person(id: ID!): Person
+    person(id: ID!, identifier: String): Person
 }
 
 # schema

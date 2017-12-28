@@ -7,17 +7,17 @@ import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.GraphQLError;
 import graphql.TypeResolutionEnvironment;
+
 import graphql.schema.DataFetcher;
-import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.GraphQLObjectType;
-import graphql.schema.StaticDataFetcher;
 import graphql.schema.TypeResolver;
 import graphql.schema.idl.EnumValuesProvider;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
+
 import static graphql.schema.idl.RuntimeWiring.newRuntimeWiring;
 import graphql.servlet.GraphQLServlet;
 import graphql.servlet.SimpleGraphQLServlet;
@@ -51,9 +51,34 @@ public class GQTest411 extends SimpleGraphQLServlet.Builder
             }    
         };
     }
-    private static DataFetcher signsDataFetcher = new SignDataFetcher();
+    private static DataFetcher signDataFetcher = new SignDataFetcher();
     private static DataFetcher personDataFetcher = new PersonDataFetcher();
     
+    private static GraphQL schemaBuild()
+    {
+        SchemaParser schemaParser = new SchemaParser();
+        SchemaGenerator schemaGenerator = new SchemaGenerator();
+        
+        File schemaFile = new File("/home/chrispowell/NetBeansProjects/AstroTurf3/src/main/java/eu/discoveri/astroturf3/AstroSchema.graphqls");
+        RuntimeWiring wiring = newRuntimeWiring()
+                .type("Entity", typeWiring -> typeWiring.typeResolver(resolveEntity()))
+                .type("LengthUnit", typeWiring -> typeWiring.enumValues(LUResolver))
+                .type("QueryEndPoint", typeWiring -> typeWiring
+                    .dataFetcher("person", personDataFetcher)
+                    .dataFetcher("sign", signDataFetcher))
+                .build();
+        
+        TypeDefinitionRegistry typeRegistry = schemaParser.parse(schemaFile);
+        GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(typeRegistry, wiring);
+        
+        return GraphQL.newGraphQL(graphQLSchema).build();
+    }
+    
+    private static ExecutionResult runQuery( GraphQL graphQL, String query )
+    {
+        ExecutionInput execInput = ExecutionInput.newExecutionInput().query(query).build();
+        return graphQL.execute(execInput);
+    }
     
     /**
      * M A I N
@@ -62,31 +87,39 @@ public class GQTest411 extends SimpleGraphQLServlet.Builder
      */
     public static void main(String[] args)
     {
-        SchemaParser schemaParser = new SchemaParser();
-        SchemaGenerator schemaGenerator = new SchemaGenerator();
+        List<GraphQLError> errors;
+        ExecutionResult execResult;
+        GraphQL graphQL = schemaBuild();
         
-        File schemaFile = new File("/home/chrispowell/NetBeansProjects/AstroTurf3/src/main/java/eu/discoveri/astroturf3/a.graphqls");
-        RuntimeWiring wiring = newRuntimeWiring()
-                .type("Entity", typeWiring -> typeWiring.typeResolver(resolveEntity()))
-                .type("LengthUnit", typeWiring -> typeWiring.enumValues(LUResolver))
-                .type("Query1", typeWiring -> typeWiring.dataFetcher("person", personDataFetcher)) // "QueryEndPoint"  .dataFetcher("signs", signsDataFetcher))
-                .build();
-        
-        TypeDefinitionRegistry typeRegistry = schemaParser.parse(schemaFile);
-        GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(typeRegistry, wiring);
-        GraphQL graphQL = GraphQL.newGraphQL(graphQLSchema).build();
-
-        String GQLquery = "{\nperson(id:\"fred\",identifier:\"EH\"){\nidentifier\n}\n}";  //{\nastrology(id:9){\nname\n signs{\nid\n name\n}\n}\n}";
-        ExecutionInput execInput = ExecutionInput.newExecutionInput().query(GQLquery).build();
-        ExecutionResult execResult = graphQL.execute(execInput);
-        Object data = execResult.getData();
-        
-        List<GraphQLError> errors = execResult.getErrors();
+        // Get a Person
+        //;
+        execResult = runQuery( graphQL, "{\nperson(id:\"fred\",identifier:\"EH\"){\nidentifier\n}\n}");
+        errors = execResult.getErrors();
         if( errors.isEmpty() )
-            {  System.out.println("JSON>>> " +data); }
+        {
+            Object personData = execResult.getData();
+            System.out.println("JSON>>> " +personData);
+        }
         else
         {
             System.out.println("***Errors:");
+            // ** Do this with functional...
+            for( GraphQLError gqlErr: errors )
+                { System.out.println("  " +gqlErr.getMessage()); }
+        }
+        
+        // Get a ZodiacSign
+        execResult = runQuery( graphQL, "{\nsign(id: 2){\nid\n name\n}\n}" ); // {\nastrology(id:9){\nname\n signs{\nid\n name\n}\n}\n}
+        errors = execResult.getErrors();
+        if( errors.isEmpty() )
+        {
+            Object signData = execResult.getData();
+            System.out.println("JSON>>> " +signData);
+        }
+        else
+        {
+            System.out.println("***Errors:");
+            // ** Do this with functional...
             for( GraphQLError gqlErr: errors )
                 { System.out.println("  " +gqlErr.getMessage()); }
         }

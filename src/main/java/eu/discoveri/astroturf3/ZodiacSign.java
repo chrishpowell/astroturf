@@ -12,26 +12,24 @@ import java.util.List;
 public class ZodiacSign
 {
     private int id;
-    private String str;
+    private String name;
+    private String additional;
     private static List<ZodiacSign> preBuiltSignList = createSignsList();
 
-    public ZodiacSign(int id, String str)
+    public ZodiacSign(int id, String name, String additional)
     {
         this.id = id;
-        this.str = str;
+        this.name = name;
+        this.additional = additional;
     }
     
     public int getId() { return id; }
 
-    public void setId(int id) { this.id = id; }
-
-    public String getStr() { return str; }
-
-    public void setStr(String str) { this.str = str; }
+    public String getName() { return name; }
     
     public String outputZodiacSign()
     {
-        return id+ ": " +str;
+        return id+ ": " +name;
     }
     
     public static List<ZodiacSign> getSignsList()
@@ -43,11 +41,11 @@ public class ZodiacSign
     {
         List<ZodiacSign> signs = new ArrayList<>();
         
-        signs.add(new ZodiacSign(1,"Cancer"));
-        signs.add(new ZodiacSign(2,"Libra"));
-        signs.add(new ZodiacSign(3,"Capricorn"));
-        signs.add(new ZodiacSign(4,"Pisces"));
-        signs.add(new ZodiacSign(5,"Aries"));
+        signs.add(new ZodiacSign(1,"Cancer","Cancer"));
+        signs.add(new ZodiacSign(2,"Libra","Libra"));
+        signs.add(new ZodiacSign(3,"Capricorn","Capricorn"));
+        signs.add(new ZodiacSign(4,"Pisces","Pisces"));
+        signs.add(new ZodiacSign(5,"Aries","Aries"));
         
         return signs;
     }
