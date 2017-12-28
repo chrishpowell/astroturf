@@ -1,10 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
  */
 package eu.discoveri.astroturf3;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -13,9 +12,10 @@ import java.util.UUID;
  */
 public class Person
 {
-    java.util.UUID ID;
-    String identifier;
-    String name;
+    private java.util.UUID ID;
+    private String identifier;
+    private String name;
+    private static List<Person> preBuiltPersonList = createPersonsList();
 
     public Person(UUID ID, String identifier, String name) {
         this.ID = ID;
@@ -33,5 +33,24 @@ public class Person
 
     public String getName() {
         return name;
+    }
+    
+    public static List<Person> getPersonsList()
+    {
+        return preBuiltPersonList;
+    }
+    
+    private static List<Person> createPersonsList()
+    {
+        List<Person> persons = new ArrayList<>();
+        
+        persons.add(new Person(UUID.randomUUID(),"JB","Joe Bloggs"));
+        persons.add(new Person(UUID.randomUUID(),"AE","Albert Einstein"));
+        persons.add(new Person(UUID.randomUUID(),"HF","Henry Ford"));
+        persons.add(new Person(UUID.randomUUID(),"IN","Isaac Newton"));
+        persons.add(new Person(UUID.randomUUID(),"FG","Friedrich Gauss"));
+        persons.add(new Person(UUID.randomUUID(),"EH","Edwin Hubble"));
+        
+        return persons;
     }
 }

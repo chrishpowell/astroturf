@@ -11,7 +11,7 @@ type Query1 {
   # Starship
   starship(id: ID!): Starship
   # person
-  person(id: String!): Person
+  person(id: String!, identifier: String): Person
 }
 
 # enum
