@@ -16,16 +16,16 @@ public class GQTestLambdas
     {
         ArrayList<ZodiacSign> alzs = new ArrayList<>();
         
-        alzs.add(new ZodiacSign(1, "Aries"));
-        alzs.add(new ZodiacSign(2, "Taurus"));
-        alzs.add(new ZodiacSign(3, "Gemini"));
-        alzs.add(new ZodiacSign(4, "Cancer"));
-        alzs.add(new ZodiacSign(5, "Leo"));
-        alzs.add(new ZodiacSign(6, "Virgo"));
-        alzs.add(new ZodiacSign(7, "Libra"));
-        alzs.add(new ZodiacSign(8, "Scorpio"));
-        alzs.add(new ZodiacSign(9, "Pisces"));
-        alzs.add(new ZodiacSign(10, "Cetus"));
+        alzs.add(new ZodiacSign(1, "Aries","Aries"));
+        alzs.add(new ZodiacSign(2, "Taurus","Taurus"));
+        alzs.add(new ZodiacSign(3, "Gemini","Gemini"));
+        alzs.add(new ZodiacSign(4, "Cancer","Cancer"));
+        alzs.add(new ZodiacSign(5, "Leo","Leo"));
+        alzs.add(new ZodiacSign(6, "Virgo","Virgo"));
+        alzs.add(new ZodiacSign(7, "Libra","Libra"));
+        alzs.add(new ZodiacSign(8, "Scorpio","Scorpio"));
+        alzs.add(new ZodiacSign(9, "Pisces","Pisces"));
+        alzs.add(new ZodiacSign(10, "Cetus","Cetus"));
         
         return alzs;
     }
@@ -34,16 +34,16 @@ public class GQTestLambdas
     {
         ArrayList<ZodiacSign> alzs = new ArrayList<>();
         
-        alzs.add(new ZodiacSign(1, "Aries"));
-        alzs.add(new ZodiacSign(2, "Taurus"));
-        alzs.add(new ZodiacSign(3, "Gemini"));
-        alzs.add(new ZodiacSign(4, "Cancer"));
-        alzs.add(new ZodiacSign(5, "Leo"));
-        alzs.add(new ZodiacSign(6, "Virgo"));
-        alzs.add(new ZodiacSign(7, "Libra"));
-        alzs.add(new ZodiacSign(8, "Scorpio"));
-        alzs.add(new ZodiacSign(9, "Pisces"));
-        alzs.add(new ZodiacSign(10, "Chinese"));
+        alzs.add(new ZodiacSign(1, "Aries","Aries"));
+        alzs.add(new ZodiacSign(2, "Taurus","Taurus"));
+        alzs.add(new ZodiacSign(3, "Gemini","Gemini"));
+        alzs.add(new ZodiacSign(4, "Cancer","Cancer"));
+        alzs.add(new ZodiacSign(5, "Leo","Leo"));
+        alzs.add(new ZodiacSign(6, "Virgo","Virgo"));
+        alzs.add(new ZodiacSign(7, "Libra","Libra"));
+        alzs.add(new ZodiacSign(8, "Scorpio","Scorpio"));
+        alzs.add(new ZodiacSign(9, "Pisces","Pisces"));
+        alzs.add(new ZodiacSign(10, "Chinese","Chinese"));
         
         return alzs;
     }
@@ -52,16 +52,16 @@ public class GQTestLambdas
     {
         ArrayList<ZodiacSign> alzs = new ArrayList<>();
         
-        alzs.add(new ZodiacSign(1, "Aries"));
-        alzs.add(new ZodiacSign(2, "Taurus"));
-        alzs.add(new ZodiacSign(3, "Gemini"));
-        alzs.add(new ZodiacSign(4, "Cancer"));
-        alzs.add(new ZodiacSign(5, "Leo"));
-        alzs.add(new ZodiacSign(6, "Virgo"));
-        alzs.add(new ZodiacSign(7, "Libra"));
-        alzs.add(new ZodiacSign(8, "Scorpio"));
-        alzs.add(new ZodiacSign(9, "Pisces"));
-        alzs.add(new ZodiacSign(10, "Extended"));
+        alzs.add(new ZodiacSign(1, "Aries","Aries"));
+        alzs.add(new ZodiacSign(2, "Taurus","Taurus"));
+        alzs.add(new ZodiacSign(3, "Gemini","Gemini"));
+        alzs.add(new ZodiacSign(4, "Cancer","Cancer"));
+        alzs.add(new ZodiacSign(5, "Leo","Leo"));
+        alzs.add(new ZodiacSign(6, "Virgo","Virgo"));
+        alzs.add(new ZodiacSign(7, "Libra","Libra"));
+        alzs.add(new ZodiacSign(8, "Scorpio","Scorpio"));
+        alzs.add(new ZodiacSign(9, "Pisces","Pisces"));
+        alzs.add(new ZodiacSign(10, "Extended","Extended"));
         
         return alzs;
     }
@@ -86,7 +86,7 @@ public class GQTestLambdas
                 System.out.println("List for: [" +as.getId()+ "] " +as.getStr());
                 for( ZodiacSign zs: as.getZs() )
                 {
-                    System.out.println(">> [" +zs.getId()+ "] " +zs.getStr());
+                    System.out.println(">> [" +zs.getId()+ "] " +zs.getName());
                 }
             }
         }

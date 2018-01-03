@@ -78,6 +78,17 @@ type ZodiacSign implements Entity {
     title: String
     # associated element
     element: Element
+    # Symbol
+    # Start date
+    # End date
+    # Stone
+    # Colour list
+    # Day (Thursday)
+    day: String
+    # Metal list
+    # Planet list
+    # Flower list
+    # Lucky numbers
     # other characteristics
     charac: ZodiacCharac
     # associated constellation
@@ -112,6 +123,8 @@ type Person implements Entity {
     firstname: String!
     # email
     email: String!
+    # DoB
+    DoB: datetime
     # connections
     friends: [Person]
 }
